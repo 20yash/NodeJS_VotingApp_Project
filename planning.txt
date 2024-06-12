@@ -1,0 +1,40 @@
+plan for a voting app
+
+What?
+A functionality where users can give vote to given set of candidates
+
+Models?(schemas in Database)
+Routes?(Api Endpoints)
+
+functionality in our projects
+1.User SignIn/SignUp
+2.See the entire list of candidates
+3.vote one of the candidates; user can vote only once
+4.To have a route which shows the list of candidates and their live vote counts sorted by their vote counts
+5.user DATA must have one unique id proof named:aadhar card number
+6.One Admin who can only maintain the table of candidates and he/she will not be able to vote at all
+7.User can change their password
+8.User can login with aadharcard number and password only
+
+_________________________
+
+Routes
+1.User Authentication:
+    /signup:POST-Create a new user account.
+    /login:POST-lOGIN to an existing account(aadhar card+password)
+
+ 2.Voting:
+    /candidates:GET-Get the list of candidates.
+    /vote/:candidateId:POST-Vote for a specific candidate
+
+ 3.Vote Counts:
+    /vote/counts:GET-Get the list of candidates sorted by their vote counts
+
+ 4.User Profile:
+    /profile:GET-Get the user's profile information
+    /profile/password:PUT-Change the user's password
+
+ 5.Admin Candidate Management:
+    /candidates:POST-Create a new Candidate.
+    /candidates/:candidateId:PUT-Update an existing candidate.
+    /candidates/:candidateId:DELETE-Delete a candidate from the list.
