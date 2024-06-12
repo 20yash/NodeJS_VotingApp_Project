@@ -15,6 +15,7 @@ functionality in our projects
 6.One Admin who can only maintain the table of candidates and he/she will not be able to vote at all
 7.User can change their password
 8.User can login with aadharcard number and password only
+9.Admin can't vote
 
 _________________________
 
