@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 
 //Now defining the User schema for the voting app
 
@@ -42,5 +42,38 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const user = mongoose.model('User',userSchema)
-module.exports = user
+userSchema.pre('save',async (next)=>{
+    const person = this;
+
+    //hash the password only if it has been modified (or is new)
+    if(!person.isModified('password')) return next()
+    try {
+        //hash password generation
+        const salt = await bcrypt.genSalt(15);
+
+        //hashing the password
+        const hashedPassword = await bcrypt.hash(person.password,salt)
+
+        //overwriting the plain password with the hashed one
+        person.password = hashedPassword
+        next();
+        
+    } catch (error) {
+        return next(error)   
+    }
+
+})
+
+//in userScheme here; we are creating a comparePassword function which checks whether the password provided by the user is valid or not
+userSchema.methods.comparePassword = async (candidatePassword)=>{
+    try {
+        //using bcrypt to compare the provided password with the hashed password
+        const isMatch = await bcrypt.compare(candidatePassword,this.password)
+        return isMatch 
+    } catch (err) {
+        throw err;
+    }
+}
+
+const User = mongoose.model('User',userSchema)
+module.exports = User
