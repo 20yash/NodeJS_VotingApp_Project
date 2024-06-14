@@ -17,13 +17,12 @@ const candidateSchema = new mongoose.Schema({
         {
             user:{
                 type:mongoose.Schema.Types.ObjectId,//we are getting the unique id directly from mongodb database therefore this line
-                ref:'user',//we are getting the reference directly from the user table
-                required:true
+                ref:'User'//we are getting the reference directly from the user table
+                // required:true
                 },
             votedAt:{
                 type:Date,
-                default:Date.now(),
-                required:true
+                default:Date.now()
                 }
         }
     ],//eventually, the length of the array is the voteCount; we can use this as a doublecheck here
@@ -34,5 +33,5 @@ const candidateSchema = new mongoose.Schema({
 
 })
 
-const candidate = mongoose.Model('candidate',candidateSchema)
-module.export = candidate
+const candidate = mongoose.model('candidate',candidateSchema)
+module.exports = candidate
